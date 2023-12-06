@@ -182,6 +182,67 @@ class MainActivity : AppCompatActivity() {
 
 }
 ```
+### EditText
+_________________
+
+Edit texts are user interface component in Android studio that allows user to enter or modify texts.
+
+<img width="365" alt="Screenshot 2023-12-07 at 12 24 49 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/2f2b01e1-694a-4d00-96ea-76ba148d8d7d">
+<img width="358" alt="Screenshot 2023-12-07 at 12 25 00 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/e7b674b6-1389-447e-b331-189d98a485e4">
+
+
+### ImageView
+____________________________
+
+
+It is used to display an image file in android application.
+
+
+<img width="368" alt="Screenshot 2023-12-07 at 1 10 41 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/165512b3-0420-4894-b102-3ddd564baaec">
+<img width="349" alt="Screenshot 2023-12-07 at 1 10 50 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/03a06e4d-fe68-44c4-a137-2bfe4bcc66e1">
+
+```
+package com.xyz.edittext_kotlin
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var name: EditText
+    lateinit var ok: Button
+    lateinit var result: TextView
+    lateinit var image: ImageView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        name = findViewById(R.id.editTextTextperson)
+        ok = findViewById(R.id.button1)
+        result = findViewById(R.id.textView2)
+        image = findViewById(R.id.fuck_image)
+
+        ok.setOnClickListener {
+            var userName: String = name.text.toString()
+            result.setText(userName)
+            image.setImageResource(R.drawable.tom)
+        }
+    }
+}
+```
+
+### CheckBox
+___________________
+
+It is a type of two state button either unchecked or checked.
+
+
+
 
 
 
