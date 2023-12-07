@@ -242,6 +242,121 @@ ___________________
 It is a type of two state button either unchecked or checked.
 
 
+<img width="364" alt="Screenshot 2023-12-07 at 7 16 13 PM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/a2405453-fb81-4a52-881d-192537ae47f5">
+<img width="366" alt="Screenshot 2023-12-07 at 7 16 27 PM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/e56693b4-f9fe-4544-a0be-e144036712e6">
+<img width="353" alt="Screenshot 2023-12-07 at 7 16 38 PM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/b79ad941-de4f-4bdc-8965-9f0ed7655324">
+
+```
+package com.xyz.checkboxes_kotlin
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.CheckBox
+import android.widget.TextView
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var male: CheckBox
+    lateinit var female: CheckBox
+    lateinit var result: TextView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        male = findViewById(R.id.check_male)
+        female = findViewById(R.id.check_female)
+        result = findViewById(R.id.textView)
+
+        male.setOnClickListener {
+            if (male.isChecked){
+                result.text = "Your gender is male"
+                female.isChecked = false
+            }
+            else{
+                result.text = "What is your gender?"
+            }
+        }
+
+        female.setOnClickListener {
+            if (female.isChecked){
+                result.text = "Your gender is female."
+                male.isChecked = false
+            }
+            else{
+                result.text = "What is your gender?"
+            }
+        }
+    }
+}
+```
+
+### RadioButton
+_____________________
+
+It allows the user to select one option from the set. We use radio Buttons for optional sets that are mutually exclusive if you think that the user wants to see all available options side by side.
+
+<img width="364" alt="Screenshot 2023-12-07 at 8 07 24 PM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/92a22070-b9d7-41fa-9ab9-133db8e2f2b4">
+<img width="376" alt="Screenshot 2023-12-07 at 8 07 36 PM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/50d03883-3423-4b8d-a8e2-da7cffea22fd">
+<img width="355" alt="Screenshot 2023-12-07 at 8 07 49 PM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/6ceef0d7-86ac-4b15-b0f3-bdbd64618cfc">
+<img width="359" alt="Screenshot 2023-12-07 at 8 08 01 PM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/74daaf54-d64e-49f5-91d2-310b1c48b994">
+
+```
+package com.xyz.radiobutton_kotlin
+
+import android.graphics.Color
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.RadioButton
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var LinearLayout : LinearLayout
+    lateinit var Green: RadioButton
+    lateinit var Yellow : RadioButton
+    lateinit var Red : RadioButton
+    lateinit var Change : Button
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        Green = findViewById(R.id.RadioButtonGreen)
+        Yellow = findViewById(R.id.RadioButtonYellow)
+        Red = findViewById(R.id.RadioButtonRed)
+        Change = findViewById(R.id.button_change)
+        LinearLayout = findViewById(R.id.linear_layout)
+
+        Change.setOnClickListener {
+            if (Green.isChecked){
+                LinearLayout.setBackgroundColor(Color.GREEN)
+            }
+            else if (Yellow.isChecked){
+                LinearLayout.setBackgroundColor(Color.YELLOW)
+            }
+            else if (Red.isChecked){
+                LinearLayout.setBackgroundColor(Color.RED)
+            }
+        }
+    }
+}
+```
+
+### Toggle Buttons
+_________________________
+
+Allows user to change a setting between two states.
+
+
+
+
+
+
+
+
+
 
 
 
