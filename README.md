@@ -467,6 +467,11 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 }
 ```
 
+### Top App Bar
+______________________
+
+It provides content and action to the current screen. It is also known as action bar. It is used for branding, screen titles, navigation and actions.
+
 
 
 
