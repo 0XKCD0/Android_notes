@@ -349,6 +349,93 @@ _________________________
 
 Allows user to change a setting between two states.
 
+<img width="365" alt="Screenshot 2023-12-09 at 8 07 36 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/f99fd6b5-79df-4764-917a-ff70ca262f0e">
+<img width="361" alt="Screenshot 2023-12-09 at 8 07 48 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/e9c1ecc6-1977-4a03-bf58-91885935e427">
+
+```
+
+```
+
+### Spinner
+____________________
+
+Spinner is a view similar to the dropdown list which is used to select one option from the list of options. It provides an easy way to select one item from the list of items and it shows a dropdown list of all values when we click on it.
+
+<img width="345" alt="Screenshot 2023-12-09 at 10 17 57 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/9040e052-ef1e-4539-ad75-80bd9fa1f1f4">
+<img width="351" alt="Screenshot 2023-12-09 at 10 18 08 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/d1742279-1ac5-49c1-813e-7b3757aef64b">
+
+strings.xml file
+```
+<resources>
+    <string name="app_name">Spinner-Kotlin</string>
+    <string-array name="countries">
+        <item>India</item>
+        <item>Sri Lanka</item>
+        <item>Bangladesh</item>
+        <item>Nepal</item>
+        <item>Pakistan</item>
+        <item>China</item>
+        <item>Japan</item>
+        <item>America</item>
+        <item>Australia</item>
+        <item>South Korea</item>
+        <item>England</item>
+        <item>Canada</item>
+        <item>South Africa</item>
+    </string-array>
+</resources>
+```
+
+MainActivity.kt file
+```
+package com.xyz.spinner_kotlin
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.TextView
+
+class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+
+    lateinit var result: TextView
+    lateinit var spinner: Spinner
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        result = findViewById(R.id.textView)
+        spinner = findViewById(R.id.spinner)
+
+        spinner.onItemSelectedListener = this
+
+        var arrayAdapter = ArrayAdapter.createFromResource(
+            this, R.array.countries, android.R.layout.simple_spinner_item
+        )
+
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
+        spinner.adapter = arrayAdapter
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        if (parent != null){
+            result.text = parent.getItemAtPosition(position).toString()
+        }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+
+    }
+}
+```
+
+
+
+
+
 
 
 
