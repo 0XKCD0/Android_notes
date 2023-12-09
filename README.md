@@ -353,7 +353,42 @@ Allows user to change a setting between two states.
 <img width="361" alt="Screenshot 2023-12-09 at 8 07 48 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/e9c1ecc6-1977-4a03-bf58-91885935e427">
 
 ```
+package com.xyz.toggle_button_kotlin
 
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.ToggleButton
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var image: ImageView
+    lateinit var result: TextView
+    lateinit var button: ToggleButton
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        image = findViewById(R.id.tom)
+        result = findViewById(R.id.text1)
+        button = findViewById(R.id.toggleButton)
+
+        button.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            if (isChecked){
+                image.visibility = View.INVISIBLE
+                result.text = "The image is invisible"
+            }
+            else{
+                image.visibility = View.VISIBLE
+                result.text = "The image is visible now"
+            }
+        }
+    }
+}
 ```
 
 ### Spinner
