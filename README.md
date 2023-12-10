@@ -472,6 +472,87 @@ ______________________
 
 It provides content and action to the current screen. It is also known as action bar. It is used for branding, screen titles, navigation and actions.
 
+### Toast Message
+______________________
+
+It can be used to display information for short period of time. A toast contains message to be displayed quickly and disappears after sometime.
+
+<img width="365" alt="Screenshot 2023-12-11 at 3 52 03 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/3bb4ad6e-fb1f-425c-b4c2-acd5335d0ccb">
+<img width="343" alt="Screenshot 2023-12-11 at 3 52 19 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/feaefae1-5949-467a-a475-bb30a9ee4001">
+
+```
+package com.xyz.toast_kotlin
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button
+import android.widget.Toast
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var buttonToast : Button
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        buttonToast = findViewById(R.id.buttonToast)
+
+        buttonToast.setOnClickListener {
+            Toast.makeText(applicationContext, "This is a Toast Message", Toast.LENGTH_LONG).show()
+        }
+    }
+}
+```
+
+### SnackBar Message
+___________________________
+
+It is a light-weight widget and it is used to show messages in the bottom of the application with swiping enabled.
+
+<img width="349" alt="Screenshot 2023-12-11 at 4 15 52 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/092012b8-4c2e-44c7-8aaa-b6f49c3e0372">
+<img width="339" alt="Screenshot 2023-12-11 at 4 16 01 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/03612995-2cdf-4ea6-b194-82b3b806e03a">
+
+```
+package com.xyz.toast_kotlin
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.snackbar.Snackbar
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var buttonToast : Button
+    lateinit var buttonSnackbar : Button
+    lateinit var myLayout : ConstraintLayout
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        buttonToast = findViewById(R.id.buttonToast)
+        buttonSnackbar = findViewById(R.id.buttonSnackbar)
+        myLayout = findViewById(R.id.mylayout)
+
+        buttonToast.setOnClickListener {
+            Toast.makeText(applicationContext, "This is a Toast Message", Toast.LENGTH_LONG).show()
+        }
+
+        buttonSnackbar.setOnClickListener {
+            Snackbar.make(myLayout, "This is a snackbar message", Snackbar.LENGTH_INDEFINITE).setAction("Close", View.OnClickListener {  }).show()
+        }
+    }
+}
+```
+
+
+
+
+
 
 
 
