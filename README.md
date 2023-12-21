@@ -86,6 +86,7 @@ Every Android project needs a Gradle for generating an apk from the .java and .x
 
 # Android Components
 _________________________________
+___________________________________
 
 ### Layouts
 ______________
@@ -472,6 +473,13 @@ ______________________
 
 It provides content and action to the current screen. It is also known as action bar. It is used for branding, screen titles, navigation and actions.
 
+
+
+________________________
+# USER INTERACTIONS
+__________________________
+__________________________
+
 ### Toast Message
 ______________________
 
@@ -548,6 +556,91 @@ class MainActivity : AppCompatActivity() {
     }
 }
 ```
+
+### Dialog Message
+__________________________
+
+A dialog is a small window that prompts the user to make a decision or enter additional information. A dialog does not fill the screen and is normally used for modal events that require users to take an action before they proceed.
+
+
+<img width="355" alt="Screenshot 2023-12-21 at 8 39 44 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/41270302-d254-4fd1-b901-79d7b6e74009">
+
+<img width="359" alt="Screenshot 2023-12-21 at 8 39 53 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/f0642068-82b2-474b-9dc8-41a69c6086f5">
+<img width="359" alt="Screenshot 2023-12-21 at 8 40 03 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/d4fa3d8f-8410-4210-88ed-26fb41454674">
+
+
+```
+package com.xyz.toast_kotlin
+
+import android.content.DialogInterface
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.snackbar.Snackbar
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var buttonToast : Button
+    lateinit var buttonSnackbar : Button
+    lateinit var myLayout : ConstraintLayout
+    lateinit var showDialogMessage : Button
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        buttonToast = findViewById(R.id.buttonToast)
+        buttonSnackbar = findViewById(R.id.buttonSnackbar)
+        myLayout = findViewById(R.id.mylayout)
+        showDialogMessage = findViewById(R.id.buttonDialogMessage)
+
+        buttonToast.setOnClickListener {
+            Toast.makeText(applicationContext, "This is a Toast Message", Toast.LENGTH_LONG).show()
+        }
+
+        buttonSnackbar.setOnClickListener {
+            Snackbar.make(myLayout, "This is a snackbar message", Snackbar.LENGTH_INDEFINITE).setAction("Close", View.OnClickListener {  }).show()
+        }
+
+        showDialogMessage.setOnClickListener {
+            showAlertDialog()
+        }
+
+    }
+
+    fun showAlertDialog()
+    {
+        var alertDialog = AlertDialog.Builder(this@MainActivity)
+
+        alertDialog.setTitle("Change")
+            .setMessage("Do you want to change the text of the button?")
+            .setIcon(R.drawable.alert)
+            .setCancelable(false)
+            .setNegativeButton("No", DialogInterface.OnClickListener { dialog, which ->
+
+                dialog.cancel()
+
+            })
+
+            .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, which ->
+
+                showDialogMessage.text = "Alert Dialog"
+            })
+
+        alertDialog.create().show()
+
+    }
+}
+```
+
+
+
+
+
 
 
 
