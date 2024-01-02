@@ -951,6 +951,153 @@ class AnimalAdapter(
 When an app has a layout that has a content that might be longer then the height of the device and that content must be vertically scrollable then we use scroll view.
 
 
+### WebView
+
+It is an android component which allows to display content from the web directly inside an application.
+
+```
+package com.xyz.scrollview_kotlin
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.activity.OnBackPressedCallback
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var webView: WebView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        webView = findViewById(R.id.web)
+
+        webView.webViewClient = WebViewClient()
+        webView.loadUrl("https://github.com/0XKCD0/Android_notes/edit/main/README.md")
+
+        onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    val callback = object : OnBackPressedCallback(true){
+        override fun handleOnBackPressed() {
+            if (webView.canGoBack()){
+                webView.goBack()
+            }
+            else{
+                finish()
+            }
+        }
+
+    }
+
+}
+```
+
+# Intent and LifeCycle
+_________________________
+
+### Intent
+_______________
+
+An intent is an object that provides runtime binding between seperate components, such as two activities.
+The intent represents an app's intent to do something.
+
+<img width="314" alt="Screenshot 2024-01-02 at 3 22 31 PM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/82e70dca-da6b-4468-b09f-84cd2c24d2e4">
+<img width="307" alt="Screenshot 2024-01-02 at 3 22 37 PM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/2b247756-514f-4803-b78c-3530a5fe521b">
+
+MainActivity.kt
+```
+package com.xyz.intent
+
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var name: EditText
+    lateinit var age : EditText
+    lateinit var sendButton : Button
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        name = findViewById(R.id.editTextName)
+        age = findViewById(R.id.editTextNumber)
+        sendButton = findViewById(R.id.send)
+
+
+        sendButton.setOnClickListener {
+
+            var userName = name.text.toString()
+            var userAge = age.text.toString().toInt()
+
+            var intent = Intent(this@MainActivity, SecondActivity::class.java)
+
+            intent.putExtra("username", userName)
+            intent.putExtra("userage", userAge)
+
+
+            startActivity(intent)
+
+        }
+    }
+}
+```
+
+SecondActivity.kt
+
+```
+package com.xyz.intent
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.TextView
+
+class SecondActivity : AppCompatActivity() {
+    lateinit var text : TextView
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_second)
+
+        text = findViewById(R.id.textView)
+
+        var userName : String = intent.getStringExtra("username").toString()
+        var userAge : Int = intent.getIntExtra("userage", 0)
+
+        text.text = "The username is $userName and his/her age is $userAge"
+
+    }
+}
+```
+
+### Application Lifecycle
+_____________________________
+
+![Android-Activity-Lifecycle](https://github.com/0XKCD0/Android_notes/assets/123825075/ea81e3ea-2aa9-43b1-8db3-636636677597)
+
+
+### Fragment Lifecycle
+___________________________
+
+
+### Services
+___________________
+
+A service is an application component that can perform long-running operations in the background. Services do not provide a user-interface.
++ Foreground service
++ Background service
++ Bound service
+
+Services has two classes:
++ 
+
+
 
 
 
