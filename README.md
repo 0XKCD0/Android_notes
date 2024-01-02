@@ -637,6 +637,325 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
+# List And Views
+___________________
+
+### ListView
+_______________
+
+List view is a view which groups several items and display them in vertical scrollable list.
+
+<img width="346" alt="Screenshot 2024-01-01 at 10 56 13 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/af842118-4297-47b7-9ced-472e7fa4fc67">
+<img width="342" alt="Screenshot 2024-01-01 at 10 56 43 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/0d638f77-94f0-4103-aea9-768adf2e4f05">
+
+MainActivity.kt
+```
+package com.xyz.listview_kotlin
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.Toast
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var listView: ListView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        listView = findViewById(R.id.listcountry)
+
+        var country = resources.getStringArray(R.array.Countries)
+
+        var arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, country)
+
+        listView.adapter = arrayAdapter
+
+        listView.setOnItemClickListener { parent, view, position, id ->
+            val countryName: String = listView.getItemAtPosition(position).toString()
+
+            Toast.makeText(applicationContext, "You selected the country  " +countryName, Toast.LENGTH_LONG).show()
+        }
+        
+
+    }
+}
+```
+
+Strings.xml
+```
+<resources>
+    <string name="app_name">ListView_KOTLIN</string>
+    
+    <string-array name="Countries">
+        <item>America</item>
+        <item>Austria</item>
+        <item>Australia</item>
+        <item>Armenia</item>
+        <item>Alaska</item>
+        <item>Antarctica</item>
+        <item>Belgium</item>
+        <item>Brooklyn</item>
+        <item>Canada</item>
+        <item>Cuba</item>
+        <item>Denmark</item>
+        <item>Egypt</item>
+        <item>France</item>
+        <item>Germany</item>
+        <item>Hungary</item>
+        <item>Iceland</item>
+        <item>India</item>
+        <item>Jericho</item>
+        <item>Jakarta</item>
+        <item>Krygystan</item>
+        <item>London</item>
+        <item>Mexico</item>
+        <item>Miami</item>
+        <item>Netherlands</item>
+        <item>Norway</item>
+        <item>Oslo</item>
+        <item>Peru</item>
+        <item>Quebec</item>
+    </string-array>
+</resources>
+```
+
+### Recycler View
+___________________
+
+It is more advanced version of ListView with improved performance and other benefits. It can take position horizontally and vertically.
+
+<img width="343" alt="Screenshot 2024-01-01 at 11 07 09 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/2df11edb-2d62-4204-ac86-abcb63ecceee">
+<img width="343" alt="Screenshot 2024-01-01 at 11 07 41 AM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/0db5d1b5-219f-40b1-95c0-40e794a7a1fd">
+
+MainActivity.kt
+```
+package com.xyz.recyclerview_kotlin
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var recylerView: RecyclerView
+
+    var contactNameList = ArrayList<String>()
+    var numberList = ArrayList<String>()
+    var imageList = ArrayList<Int>()
+
+    lateinit var adapter: contactAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        recylerView = findViewById(R.id.recylerView)
+
+        recylerView.layoutManager = LinearLayoutManager(this@MainActivity)
+
+        contactNameList.add("Didi")
+        contactNameList.add("Mutesh")
+        contactNameList.add("Nono")
+
+        numberList.add("+91 9483362342")
+        numberList.add("+91 9462863729")
+        numberList.add("+91 7791823546")
+
+        imageList.add(R.drawable.didi)
+        imageList.add(R.drawable.mutesh)
+        imageList.add(R.drawable.nono)
+
+        adapter = contactAdapter(contactNameList, numberList, imageList, this@MainActivity)
+
+        recylerView.adapter = adapter
+
+    }
+}
+```
+
+contactAdapter.kt
+```
+package com.xyz.recyclerview_kotlin
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
+import de.hdodenhof.circleimageview.CircleImageView
+
+class contactAdapter(
+    var contactNameList: ArrayList<String>,
+    var numberList: ArrayList<String>,
+    var imageList: ArrayList<Int>,
+    var context: Context) : RecyclerView.Adapter<contactAdapter.ContactViewHolder>(){
+
+    class ContactViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        var textViewName : TextView = itemView.findViewById(R.id.textViewName)
+        var textViewNumber : TextView = itemView.findViewById(R.id.textViewNumber)
+        var ImageView : CircleImageView = itemView.findViewById(R.id.imageView)
+        var cardView : CardView = itemView.findViewById(R.id.cardView)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
+
+        val view : View = LayoutInflater.from(parent.context)
+            .inflate(R.layout.card_design, parent, false)
+
+        return ContactViewHolder(view)
+    }
+
+    override fun getItemCount(): Int {
+        return contactNameList.size
+    }
+
+    override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
+
+        holder.textViewName.text = contactNameList.get(position)
+        holder.textViewNumber.text = numberList.get(position)
+        holder.ImageView.setImageResource(imageList.get(position))
+
+        holder.cardView.setOnClickListener {
+            Toast.makeText(context, "You selected the contact of " + contactNameList.get(position), Toast.LENGTH_LONG ).show()
+        }
+    }
+
+}
+```
+
+### GridView
+________________
+
+It shows items in two dimensional scrolling grid (rows and coloumns) and the grid items are not necessarily predetrmined but they automatically get inserted to the layout using a list adapter.
+
+<img width="346" alt="Screenshot 2024-01-01 at 4 54 38 PM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/2657503d-b5e1-4d24-8dfa-b7d1b38fa8e3">
+<img width="339" alt="Screenshot 2024-01-01 at 4 54 44 PM" src="https://github.com/0XKCD0/Android_notes/assets/123825075/4677f9b6-b275-4a4e-a948-94a221fdc8a4">
+
+
+MainActivity.kt
+
+```
+package com.xyz.gridview_kotlin
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Adapter
+import android.widget.GridView
+import android.widget.Toast
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var gridView: GridView
+    var nameList = ArrayList<String>()
+    var imageList = ArrayList<Int>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        gridView = findViewById(R.id.gridView)
+        fillArrays()
+
+        val adapter = AnimalAdapter(this,nameList, imageList)
+        gridView.adapter = adapter
+
+        gridView.setOnItemClickListener { adapterView, view, position, id ->
+            Toast.makeText(applicationContext, "You selected the ${nameList[position]} animal", Toast.LENGTH_LONG).show()
+        }
+
+    }
+
+    fun fillArrays(){
+        nameList.add("sparrow")
+        nameList.add("Monkey")
+        nameList.add("Dog")
+        nameList.add("Cat")
+        nameList.add("Cow")
+        nameList.add("Horse")
+        nameList.add("Rabbit")
+        nameList.add("Donkey")
+        nameList.add("Snake")
+
+        imageList.add(R.drawable.sparrow)
+        imageList.add(R.drawable.monkey)
+        imageList.add(R.drawable.dog)
+        imageList.add(R.drawable.cat)
+        imageList.add(R.drawable.cow)
+        imageList.add(R.drawable.horse)
+        imageList.add(R.drawable.rabbit)
+        imageList.add(R.drawable.donkey)
+        imageList.add(R.drawable.snake)
+
+    }
+}
+```
+
+AnimalAdapter.kt
+
+```
+package com.xyz.gridview_kotlin
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.BaseAdapter
+import android.widget.ImageView
+import android.widget.TextView
+
+class AnimalAdapter(
+    var context: Context,
+    var nameList: ArrayList<String>,
+    var imageList: ArrayList<Int>
+) : BaseAdapter() {
+
+
+    override fun getCount(): Int {
+        return nameList.size
+    }
+
+    override fun getItem(position: Int): Any? {
+        return null
+    }
+
+    override fun getItemId(position: Int): Long {
+        return 0
+    }
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        val view : View = LayoutInflater.from(parent!!.context)
+            .inflate(R.layout.custom_layout,parent,false)
+
+        val animalName : TextView = view.findViewById(R.id.textView)
+        val animalImage : ImageView = view.findViewById(R.id.imageView)
+
+        animalName.text = nameList[position]
+        animalImage.setImageResource(imageList.get(position))
+
+        return view
+    }
+
+}
+```
+
+### ScrollView
+
+When an app has a layout that has a content that might be longer then the height of the device and that content must be vertically scrollable then we use scroll view.
+
+
+
+
+
+
+
 
 
 
