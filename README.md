@@ -1098,6 +1098,18 @@ Services has two classes:
 + 
 
 
+# Shared Preferences And Data Saving
+
+_______________________________________
+
+### Shared Preferences
+________________________
+
+It allows you to save and retrieve data in the form of value pair and key.
+It allows you to save and retrieve primitive data types (Interger, float, Boolean, String, Long) data.
+The shared preference file is managed by an android framework and it can be accessed anywhere within the app to read or write the data into the file.
+
+
 
 
 
