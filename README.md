@@ -1109,6 +1109,28 @@ It allows you to save and retrieve data in the form of value pair and key.
 It allows you to save and retrieve primitive data types (Interger, float, Boolean, String, Long) data.
 The shared preference file is managed by an android framework and it can be accessed anywhere within the app to read or write the data into the file.
 
+# Architectural Room Database
+_______________________________
+
+### Room Database
+__________________
+
+A new concept for creating database in Android applications. Introduced Google Room Database at Google IO 2017.
+Room database creates an Abstract layer above the SQLite Database.
+
+Room database has 3 components:
++ Entity - sets/hold field values
++ Database Access Objects - Get entities from database. Persist changes again back to database.
++ Database
+
+Room database transactions
++ Create database
++ Create table
++ Add new Data (Insert)
++ Show data in app (Query)
++ Data update (Update)
++ Data delete (Delete)
+
 
 
 
